@@ -1,16 +1,27 @@
-# edunimal
+# Edunimal
 
-A new Flutter project.
+This project is an app for kids that helps them identify animals and generate fairy tales about them. 🦁🐆
 
-## Getting Started
+![image](https://github.com/nabilbndev/edunimal/assets/18189873/5e7caa7c-b014-44b3-be21-955b737bf4ed)
 
-This project is a starting point for a Flutter application.
+### Features
+Identify animals by snapping photos or uploading photos.
+Get the name of the animal in simple text.
+Generate a fairy tale about the animal, based on the results of the API.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### How to Use
+Open the app.
+Take a photo of an animal or upload a photo from your device.
+The app will identify the animal and give you the name in simple text.
+If you want to generate a fairy tale about the animal, tap the "Generate Fairy Tale" button.
+The app will generate a fairy tale about the animal, based on the results of the API.
+### Requirements
+//
+### Installation
+Clone this repository.
+Install the dependencies using flutter pub get.
+Run the app using flutter run.
+### Credits
+//
+### License
+This project is licensed under the MIT License.
