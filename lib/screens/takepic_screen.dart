@@ -74,7 +74,6 @@ class _TakePicScreenState extends State<TakePicScreen> {
                       builder: (BuildContext context) {
                         return DialogBox(onPressedCamera: () {
                           _pickImageFromCamera();
-                          dispose();
                         }, onPressedGallery: () {
                           _pickImageFromGallery();
                         });
