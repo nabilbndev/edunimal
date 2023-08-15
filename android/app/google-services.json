@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "48202083319",
+    "project_id": "edunimal-94043",
+    "storage_bucket": "edunimal-94043.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48202083319:android:25e34b7be4a9cd95abdcf2",
+        "android_client_info": {
+          "package_name": "com.example.edunimal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48202083319-v5ms26mq0c30r36q55rr480vu948ghqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB73ijA1rm0hPREj_IBmGgQmrWeJWHtRj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48202083319-v5ms26mq0c30r36q55rr480vu948ghqr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
