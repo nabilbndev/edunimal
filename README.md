@@ -2,7 +2,7 @@
 
 This project is an app for kids that helps them identify animals and generate fairy tales about them. 🦁🐆
 
-![image]([https://github.com/nabilbndev/edunimal/assets/18189873/5e7caa7c-b014-44b3-be21-955b737bf4ed](https://github.com/nabilbndev/edunimal/blob/3b6fbf25f1253f6524c1145f8e607378ab029c49/assets/edunimal_launch_icon.png)
+![image]([assets/edunimal_launch_icon.png)
 
 ### Features
 Identify animals by snapping photos or uploading photos.
