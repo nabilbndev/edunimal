@@ -10,28 +10,24 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration:
-          BoxDecoration(color: Theme.of(context).colorScheme.onBackground),
-      child: Center(
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          const SizedBox(
-            height: 40,
-          ),
-          const SignInScreenHero(),
-          const SizedBox(
-            height: 40,
-          ),
-          SignInButton(onPressed: () {
-            {
-              final provider =
-                  Provider.of<SignInProvider>(context, listen: false);
-              provider.signInWithGoogle();
-            }
-          })
-        ]),
-      ),
+    return Center(
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        const SizedBox(
+          height: 40,
+        ),
+        const SignInScreenHero(),
+        const SizedBox(
+          height: 40,
+        ),
+        SignInButton(onPressed: () {
+          {
+            final provider =
+                Provider.of<SignInProvider>(context, listen: false);
+            provider.signInWithGoogle();
+          }
+        })
+      ]),
     );
   }
 }

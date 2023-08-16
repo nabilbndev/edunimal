@@ -12,9 +12,7 @@ class SignInButton extends StatelessWidget {
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary
-              //internal content margin
-              ),
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary),
           onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

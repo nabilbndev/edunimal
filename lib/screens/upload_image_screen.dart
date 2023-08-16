@@ -8,6 +8,8 @@ import 'package:path/path.dart';
 import 'package:edunimal/logic/signin_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../components/others/search_result_tile.dart';
+
 class UploadImagePage extends StatefulWidget {
   const UploadImagePage({super.key});
 
@@ -79,12 +81,8 @@ class _UploadImagePageState extends State<UploadImagePage> {
           } else if (snapshot.hasData) {
             var responseData = jsonDecode(snapshot.data!.toString());
             var label = responseData['google']['label'][0];
-            return Center(
-              child: Text(
-                'It is a $label!!!!',
-                style: edunimalTextTheme.bodyLarge,
-              ),
-            );
+            var confidence = responseData['google']['confidence'][0];
+            return SearchResult(label: label, confidence: confidence);
           } else {
             return Center(
                 child: Column(
@@ -104,7 +102,7 @@ class _UploadImagePageState extends State<UploadImagePage> {
                   height: 10,
                 ),
                 const Text(
-                  'Pick an image to upload',
+                  'Take photo and detect animal',
                   style: TextStyle(color: Colors.black),
                 ),
               ],

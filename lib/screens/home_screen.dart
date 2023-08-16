@@ -30,8 +30,5 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-    // StreamBuilder(stream: , builder:(context, snapshot) {
-
-    // },
   }
 }
