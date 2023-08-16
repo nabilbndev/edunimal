@@ -7,6 +7,8 @@ TextStyle edunimalFont = GoogleFonts.comfortaa();
 TextTheme edunimalTextTheme = const TextTheme(
     displayLarge: TextStyle(
         fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
+    bodyLarge: TextStyle(
+        fontSize: 48, fontWeight: FontWeight.w700, color: Colors.black),
     titleLarge: TextStyle(
         fontSize: 24, fontWeight: FontWeight.w700, color: Colors.black),
     bodyMedium: TextStyle(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:edunimal/provider/signin_provider.dart';
+import 'package:edunimal/logic/signin_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../components/buttons/signin_button.dart';

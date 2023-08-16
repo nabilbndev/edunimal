@@ -1,5 +1,5 @@
 import 'package:edunimal/screens/signin_screen.dart';
-import 'package:edunimal/screens/takepic_screen.dart';
+import 'package:edunimal/screens/upload_image_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasData) {
-              return const TakePicScreen();
+              return const UploadImagePage();
             } else if (snapshot.hasError) {
               return const Center(
                 child: Text("Something is wrong"),
