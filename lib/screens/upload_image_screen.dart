@@ -136,7 +136,7 @@ class _UploadImagePageState extends State<UploadImagePage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           scrollable: true,
-                          title: Text('Story of a $animalName?'),
+                          title: Text('Story of a $animalName'),
                           content: Text(story),
                           actions: [
                             TextButton(
