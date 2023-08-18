@@ -20,11 +20,13 @@ class UploadImagePage extends StatefulWidget {
 class _UploadImagePageState extends State<UploadImagePage> {
   final ImagePicker _picker = ImagePicker();
   Future<Response>? _responseFuture;
-
+  String apiKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODU0NWFhNjItNjIxYy00NzNhLTkyNzktN2VmOWZhZjI1YjA5IiwidHlwZSI6ImFwaV90b2tlbiJ9.usMATUzTk828oKKulvS3zQHDzWChkZ_lYiA1POHcT_w";
   Future<Response> uploadImage(File imageFile) async {
     var dio = Dio();
 
     String url = "https://api.edenai.run/v2/image/object_detection";
+
     String filename = basename(imageFile.path);
 
     FormData formData = FormData.fromMap({
@@ -34,11 +36,37 @@ class _UploadImagePageState extends State<UploadImagePage> {
       // Add other fields if needed
     });
 
-    dio.options.headers["Authorization"] =
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODU0NWFhNjItNjIxYy00NzNhLTkyNzktN2VmOWZhZjI1YjA5IiwidHlwZSI6ImFwaV90b2tlbiJ9.usMATUzTk828oKKulvS3zQHDzWChkZ_lYiA1POHcT_w";
+    dio.options.headers["Authorization"] = "Bearer $apiKey";
     dio.options.headers["Content-Type"] =
         "multipart/form-data; boundary=${formData.boundary}";
     return await dio.post(url, data: formData);
+  }
+
+  Future<String> generateStory(String text) async {
+    final dio = Dio();
+
+    final options = Options(
+      headers: {
+        'Authorization': 'Bearer $apiKey',
+      },
+    );
+
+    final response = await dio.post(
+      'https://api.edenai.run/v2/text/generation',
+      options: options,
+      queryParameters: {
+        'providers': 'openai',
+        'text':
+            "Generate a short and interesting fairytale about $text for kids",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final responseString = jsonDecode(response.toString());
+      return responseString['openai']['generated_text'];
+    } else {
+      throw Exception('Failed to generate text');
+    }
   }
 
   void pickImage(ImageSource source) async {
@@ -75,14 +103,62 @@ class _UploadImagePageState extends State<UploadImagePage> {
         future: _responseFuture,
         builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    color: brandColor,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Searching for result",
+                    style: edunimalTextTheme.bodyMedium,
+                  )
+                ],
+              ),
+            );
           } else if (snapshot.hasData) {
             var responseData = jsonDecode(snapshot.data!.toString());
-            var label = responseData['google']['label'][0];
+            var animalName = responseData['google']['label'][0];
             var confidence = responseData['google']['confidence'][0];
-            return SearchResult(label: label, confidence: confidence);
+            return Column(
+              children: [
+                SearchResult(label: animalName, confidence: confidence),
+                ElevatedButton(
+                  onPressed: () async {
+                    String story = await generateStory(animalName);
+                    // ignore: use_build_context_synchronously
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          scrollable: true,
+                          title: Text('Story of a $animalName?'),
+                          content: Text(story),
+                          actions: [
+                            TextButton(
+                              child: const Text('Close'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text('Read a story about $animalName'),
+                ),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text(
+              'Error: ${snapshot.error}',
+              style: const TextStyle(color: Colors.black),
+            );
           } else {
             return Center(
                 child: Column(

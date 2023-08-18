@@ -12,5 +12,5 @@ TextTheme edunimalTextTheme = const TextTheme(
     titleLarge: TextStyle(
         fontSize: 24, fontWeight: FontWeight.w700, color: Colors.black),
     bodyMedium: TextStyle(
-        fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white),
+        fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
     bodySmall: TextStyle(fontSize: 10, fontWeight: FontWeight.w400));
