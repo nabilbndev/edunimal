@@ -42,7 +42,6 @@ class SearchResult extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15), color: brandColor),
             child: ListTile(
-              leading: const Icon(Icons.search),
               title: Text(label),
               subtitle: Text('Confidence: $confidence'),
             ),

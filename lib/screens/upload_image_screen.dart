@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:edunimal/logic/function_gen_story.dart';
+import 'package:edunimal/logic/function_upload_image.dart';
 import 'package:edunimal/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 import 'package:edunimal/logic/signin_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../components/others/search_result_tile.dart';
 
 class UploadImagePage extends StatefulWidget {
@@ -20,54 +20,6 @@ class UploadImagePage extends StatefulWidget {
 class _UploadImagePageState extends State<UploadImagePage> {
   final ImagePicker _picker = ImagePicker();
   Future<Response>? _responseFuture;
-  String apiKey =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODU0NWFhNjItNjIxYy00NzNhLTkyNzktN2VmOWZhZjI1YjA5IiwidHlwZSI6ImFwaV90b2tlbiJ9.usMATUzTk828oKKulvS3zQHDzWChkZ_lYiA1POHcT_w";
-  Future<Response> uploadImage(File imageFile) async {
-    var dio = Dio();
-
-    String url = "https://api.edenai.run/v2/image/object_detection";
-
-    String filename = basename(imageFile.path);
-
-    FormData formData = FormData.fromMap({
-      "providers": "google",
-      "file": await MultipartFile.fromFile(imageFile.path, filename: filename),
-      "attributes_as_list": true,
-      // Add other fields if needed
-    });
-
-    dio.options.headers["Authorization"] = "Bearer $apiKey";
-    dio.options.headers["Content-Type"] =
-        "multipart/form-data; boundary=${formData.boundary}";
-    return await dio.post(url, data: formData);
-  }
-
-  Future<String> generateStory(String text) async {
-    final dio = Dio();
-
-    final options = Options(
-      headers: {
-        'Authorization': 'Bearer $apiKey',
-      },
-    );
-
-    final response = await dio.post(
-      'https://api.edenai.run/v2/text/generation',
-      options: options,
-      queryParameters: {
-        'providers': 'openai',
-        'text':
-            "Generate a short and interesting fairytale about $text for kids",
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final responseString = jsonDecode(response.toString());
-      return responseString['openai']['generated_text'];
-    } else {
-      throw Exception('Failed to generate text');
-    }
-  }
 
   void pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
