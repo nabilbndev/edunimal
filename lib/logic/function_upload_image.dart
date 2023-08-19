@@ -20,5 +20,9 @@ Future<Response> uploadImage(File imageFile) async {
   dio.options.headers["Authorization"] = "Bearer $apiKey";
   dio.options.headers["Content-Type"] =
       "multipart/form-data; boundary=${formData.boundary}";
-  return await dio.post(url, data: formData);
+  try {
+    return await dio.post(url, data: formData);
+  } catch (e) {
+    throw Exception('Failed to get a response from API');
+  }
 }

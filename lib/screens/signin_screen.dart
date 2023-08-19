@@ -3,7 +3,7 @@ import 'package:edunimal/logic/signin_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../components/buttons/signin_button.dart';
-import '../components/others/signin_screen_hero.dart';
+import '../components/sign_in/signin_screen_hero.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});

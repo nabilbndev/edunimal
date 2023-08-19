@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:edunimal/components/upload_image/welcome_message_uploadimage.dart';
 import 'package:edunimal/logic/function_gen_story.dart';
 import 'package:edunimal/logic/function_upload_image.dart';
 import 'package:edunimal/theme/theme_data.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:edunimal/logic/signin_provider.dart';
 import 'package:provider/provider.dart';
-import '../components/others/search_result_tile.dart';
+import '../components/upload_image/search_result_tile.dart';
 
 class UploadImagePage extends StatefulWidget {
   const UploadImagePage({super.key});
@@ -61,9 +62,10 @@ class _UploadImagePageState extends State<UploadImagePage> {
                 children: [
                   CircularProgressIndicator(
                     color: brandColor,
+                    strokeWidth: 5,
                   ),
                   const SizedBox(
-                    height: 5,
+                    height: 20,
                   ),
                   Text(
                     "Searching for result",
@@ -79,26 +81,12 @@ class _UploadImagePageState extends State<UploadImagePage> {
             return Column(
               children: [
                 SearchResult(label: animalName, confidence: confidence),
-                ElevatedButton(
-                  onPressed: () async {
-                    String story = await generateStory(animalName);
-                    // ignore: use_build_context_synchronously
+                FilledButton.tonal(
+                  onPressed: () {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AlertDialog(
-                          scrollable: true,
-                          title: Text('Story of a $animalName'),
-                          content: Text(story),
-                          actions: [
-                            TextButton(
-                              child: const Text('Close'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
+                        return StoryBoxAlertDialog(animalName: animalName);
                       },
                     );
                   },
@@ -107,34 +95,27 @@ class _UploadImagePageState extends State<UploadImagePage> {
               ],
             );
           } else if (snapshot.hasError) {
-            return Text(
-              'Error: ${snapshot.error}',
-              style: const TextStyle(color: Colors.black),
+            return const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error,
+                    color: Colors.red,
+                    size: 50,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Check your internet connection and try again',
+                    style: TextStyle(color: Colors.black, fontSize: 14),
+                  ),
+                ],
+              ),
             );
           } else {
-            return Center(
-                child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Image.asset("assets/edunimal_brand.png"),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Welcome back, $userName!",
-                  style: const TextStyle(color: Colors.black),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  'Take photo and detect animal',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ],
-            ));
+            return WelcomeMessage(userName: userName);
           }
         },
       ),
@@ -156,6 +137,47 @@ class _UploadImagePageState extends State<UploadImagePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class StoryBoxAlertDialog extends StatelessWidget {
+  const StoryBoxAlertDialog({
+    super.key,
+    required this.animalName,
+  });
+
+  final String animalName;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      scrollable: true,
+      title: Text('Story of a $animalName', textAlign: TextAlign.center),
+      content: FutureBuilder<String>(
+        future: generateStory(animalName),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return LinearProgressIndicator(
+              color: brandColor,
+            );
+          } else {
+            if (snapshot.hasError) {
+              return const Text('Try Again');
+            } else {
+              return Text('${snapshot.data}');
+            }
+          }
+        },
+      ),
+      actions: [
+        TextButton(
+          child: const Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 }
