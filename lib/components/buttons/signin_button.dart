@@ -25,7 +25,10 @@ class SignInButton extends StatelessWidget {
               const SizedBox(
                 width: 18,
               ),
-              Text("Join", style: edunimalTextTheme.displayLarge),
+              Text(
+                "Join",
+                style: edunimalTextTheme.bodyLarge,
+              ),
             ],
           )),
     );

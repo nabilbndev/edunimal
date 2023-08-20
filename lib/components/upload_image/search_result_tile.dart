@@ -15,6 +15,7 @@ class SearchResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.all(10),
@@ -23,12 +24,12 @@ class SearchResult extends StatelessWidget {
               padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: brandColor,
+                color: Theme.of(context).colorScheme.outline,
               ),
               child: const Text(
                 "Search result",
                 style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
               ),
             )
           ]),
@@ -46,6 +47,16 @@ class SearchResult extends StatelessWidget {
               subtitle: Text('Confidence: $confidence'),
             ),
           ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Text("Tap the \"Story\" button to see some magic!"),
+        ),
+        const SizedBox(
+          height: 20,
         ),
       ],
     );

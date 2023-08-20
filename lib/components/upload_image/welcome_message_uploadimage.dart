@@ -1,3 +1,4 @@
+import 'package:edunimal/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeMessage extends StatelessWidget {
@@ -22,14 +23,14 @@ class WelcomeMessage extends StatelessWidget {
         ),
         Text(
           "Welcome back, $userName!",
-          style: const TextStyle(color: Colors.black),
+          style: edunimalTextTheme.bodyMedium,
         ),
         const SizedBox(
           height: 10,
         ),
-        const Text(
+        Text(
           'Take photo and detect animal',
-          style: TextStyle(color: Colors.black),
+          style: edunimalTextTheme.bodyMedium,
         ),
       ],
     ));
