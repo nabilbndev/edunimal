@@ -27,8 +27,8 @@ class StoryBoxAlertDialog extends StatelessWidget {
       data: {
         'providers': 'amazon',
         'language': 'en',
-        "rate": 20,
-        "pitch": 90,
+        "rate": 30,
+        "pitch": 30,
         'text': story,
         'option': 'FEMALE',
       },
@@ -41,6 +41,10 @@ class StoryBoxAlertDialog extends StatelessWidget {
       // If that response was not OK, throw an error.
       throw Exception('Failed to load post');
     }
+  }
+
+  Future<void> stopSpeech() async {
+    await flutterTts.stop();
   }
 
   @override
@@ -62,10 +66,22 @@ class StoryBoxAlertDialog extends StatelessWidget {
               return Column(
                 children: [
                   Text('${snapshot.data}'),
-                  IconButton(
-                    icon: const Icon(Icons.volume_up),
-                    onPressed: () => textToSpeech(snapshot.data!),
-                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.volume_up),
+                        onPressed: () => textToSpeech(snapshot.data!),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.stop),
+                        onPressed: () => stopSpeech(),
+                      ),
+                    ],
+                  )
                 ],
               );
             }
